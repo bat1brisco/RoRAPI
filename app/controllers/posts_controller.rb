@@ -15,6 +15,9 @@ class PostsController < ApplicationController
 
   # POST /posts
   def create
+    puts("****************************************************************************")
+    # puts(params[:user_id])
+
     @post = Post.new(post_params)
 
     if @post.save
@@ -46,6 +49,8 @@ class PostsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def post_params
-      params.fetch(:post, {})
+      # params.permit(:post, {}).merge(user_id: 1)
+      params.require(:post).permit(:post, :subject, :topic_id, :user_id)
+      # params.require(:post).permit(:user_id)
     end
 end

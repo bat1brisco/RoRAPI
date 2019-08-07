@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :topics
   resources :posts
   post 'user/login' => 'users#login'
   resources :users

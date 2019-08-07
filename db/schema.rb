@@ -10,7 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_07_014534) do
+ActiveRecord::Schema.define(version: 2019_08_07_044009) do
+
+  create_table "posts", options: "ENGINE=InnoDB DEFAULT CHARSET=latin2", force: :cascade do |t|
+    t.text "post"
+    t.string "subject"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.bigint "topic_id"
+    t.index ["topic_id"], name: "index_posts_on_topic_id"
+    t.index ["user_id"], name: "index_posts_on_user_id"
+  end
+
+  create_table "topics", options: "ENGINE=InnoDB DEFAULT CHARSET=latin2", force: :cascade do |t|
+    t.string "topic"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=latin2", force: :cascade do |t|
     t.string "email"
@@ -23,4 +40,6 @@ ActiveRecord::Schema.define(version: 2019_08_07_014534) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "posts", "topics"
+  add_foreign_key "posts", "users"
 end
